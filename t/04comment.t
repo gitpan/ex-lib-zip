@@ -22,7 +22,7 @@ BEGIN {
 BEGIN {
   chdir 't' if -d 't';
 }
-use ex::lib::zip qw(../four.zip ../nineovertwo.zip);
+use ex::lib::zip qw(four.zip nineovertwo.zip);
 BEGIN {
   ok (2); # Didn't blow up :-)
 }

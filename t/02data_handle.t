@@ -15,7 +15,7 @@ use ex::lib::zip;
 BEGIN {
   chdir 't' if -d 't';
 }
-use ex::lib::zip '../two.zip';
+use ex::lib::zip 'two.zip';
 
 # We will need to skip a directory and a file to get to Q.pm
 use Q;

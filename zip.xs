@@ -30,8 +30,8 @@
 /* This associated with this implemementation:  */
 struct cache {
   off_t		size;
-  time_t	mtime;
   off_t		progress;
+  time_t	mtime;
 };
 
 #define CLASSNAME		"ex::lib::zip"
@@ -458,10 +458,9 @@ findfile (HV *self, struct cache *aswas, PerlIO *fp, SV *file)
 #endif
 
   {
-    AV *layers = newAV();
     const char *layer_name;
     STRLEN layer_len;
-    SV *layer;
+    PerlIO_funcs *layer;
     SV *arg;
     int result;
 
@@ -483,16 +482,12 @@ findfile (HV *self, struct cache *aswas, PerlIO *fp, SV *file)
     if (!layer)
       Perl_croak(aTHX_ CLASSNAME " failed to find layer \"%s\"", layer_name);
 
-    av_push(layers,SvREFCNT_inc(layer));
-    av_push(layers,arg);
-
-    result = PerlIO_apply_layera(aTHX_ fp, NULL, layers, 0);
+    result = PerlIO_push(aTHX_ fp, layer, NULL, arg) ? 0 : -1;
       
 #ifdef DEBUG_LIBZIP
     PerlIO_debug("Apply layer of %s gave %d\n", layer_name, result);
 #endif
 
-    SvREFCNT_dec((SV *) layers);
     return result;
   }
 }
@@ -513,7 +508,6 @@ new (class, file)
 	  HV *self;
 	  SV *self_ref;
           SV **entry;
-	  char *buffer;
 	  /* A cache struct all zero.  Read only.  */
 	  static const struct cache zeros;
 

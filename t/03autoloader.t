@@ -15,7 +15,7 @@ use ex::lib::zip;
 BEGIN {
   chdir 't' if -d 't';
 }
-use ex::lib::zip '../three.zip';
+use ex::lib::zip 'three.zip';
 
 use Auto qw (body auto1);
 ok (body, "I'm in the body");

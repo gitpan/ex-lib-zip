@@ -14,3 +14,16 @@ Revision history for Perl extension ex::lib::zip.
       Added make-zips.pl to the MANIFEST, which had been forgotten.
       Tweak the Makefile.PL so that make-zips.pl and pushme.pl don't get
       spotted and hence installed. (They aren't meant to be installed)
+
+0.03  Sun Aug 26 14:52:54 BST 2001
+      So PerlIO_apply_layera() changed in 5.7.2 to use PerlIO_list_t *
+      rather than AV *, and everything was broken.  zip.xs now fixed.
+      (but I'm not sure if this is supposed to be a public API. It's not in
+       the perliol.h, hence warnings from gcc about integer to pointer
+       conversions)
+      Moved all the test modules into t, so that the CPAN scripts don't think
+      I'm providing all the dummy modules in there (Thanks to Andreas König for
+      explaining this one)
+      Sat Dec 15 16:32:46 GMT 2001
+      Oops. Short delay. I've been a fool. Why use PerlIO_apply_layera when
+      all I need to do is push 1 layer PerlIO_push

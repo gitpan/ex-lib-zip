@@ -64,13 +64,13 @@ $script .= <FH>;
 open FH, "pullyou.zip" or die "open: $!";
 binmode FH;
 $script .= <FH>;
-open FH, ">t/pushmepullyou.t" or die "open: $!";
+open FH, ">pushmepullyou.t" or die "open: $!";
 binmode FH;
 print FH $script or die "print: $!";
 close FH or die "print: $!";
 
 # 
-my $command = "$zipexe -A t/pushmepullyou.t";
+my $command = "$zipexe -A pushmepullyou.t";
 system $command and die "'$command' failed";
 
 __DATA__

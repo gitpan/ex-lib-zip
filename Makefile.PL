@@ -1,3 +1,4 @@
+require 5.007002; # Stop perl 5.005 or earler barfing on the v string
 use ExtUtils::MakeMaker;
 # See lib/ExtUtils/MakeMaker.pm for details of how to influence
 # the contents of the Makefile that is written.
@@ -14,7 +15,4 @@ WriteMakefile(
     'INC'		=> '', # e.g., '-I/usr/include/other'
 	# Un-comment this if you add C files to link with later:
     # 'OBJECT'		=> '$(O_FILES)', # link all the C files too
-    # Don't install the two top level .pl files that are only build helpers
-    # list PM explictly, else the default scan will spot the two .pl files.
-    PM			=> {'zip.pm' => '$(INST_LIBDIR)/zip.pm'}
 );

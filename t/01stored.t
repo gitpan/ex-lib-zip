@@ -15,7 +15,7 @@ use ex::lib::zip;
 BEGIN {
   chdir 't' if -d 't';
 }
-use ex::lib::zip '../one.zip';
+use ex::lib::zip 'one.zip';
 use ok (1);
 use ok (2);
 $ntest+=2;
