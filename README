@@ -1,4 +1,4 @@
-ex::lib::zip version 0.03
+ex::lib::zip version 0.04
 =========================
 
 An extension to let you C<use> things direct from zip files direct.
@@ -55,4 +55,4 @@ You may distribute this work under the terms of either the GNU General
 Public License or the Artistic License, as specified in perl's README
 file.
 
-Copyright © 2001 Nicholas Clark
+Copyright © 2001,2003 Nicholas Clark

@@ -33,3 +33,4 @@ t/03autoloader.t
 t/04comment.t
 t/pushmepullyou.t
 t/make-zips.pl
+META.yml                                Module meta-data (added by MakeMaker)

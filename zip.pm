@@ -8,7 +8,7 @@ use XSLoader ();
 use PerlIO::gzip 0.07;
 use PerlIO::subfile 0.02; # Now passing a UV arg
 
-our $VERSION = '0.03';
+our $VERSION = '0.04';
 our @ORIG_INC = @INC;	# take a handy copy of 'original' value
 
 XSLoader::load "ex::lib::zip", $VERSION;

@@ -52,6 +52,7 @@ openzipfile (PerlIO *zipfile, off_t length)
   off_t tosearch;
   unsigned char buffer[UNZIP_SEARCH_BUFFERSIZE];
   unsigned char *where;
+  dTHX;
 
   if (length < ZIP_ENDCENTRALDIRSIZE) {
 #ifdef DEBUG_LIBZIP
