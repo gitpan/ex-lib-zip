@@ -1,14 +1,14 @@
 package ex::lib::zip;
 
-use 5.007;
+use 5.007001;
 use strict;
 use warnings;
 
 use XSLoader ();
 use PerlIO::gzip;
-use PerlIO::subfile;
+use PerlIO::subfile 0.02; # Now passing a UV arg
 
-our $VERSION = '0.01';
+our $VERSION = '0.02';
 our @ORIG_INC = @INC;	# take a handy copy of 'original' value
 
 XSLoader::load "ex::lib::zip", $VERSION;

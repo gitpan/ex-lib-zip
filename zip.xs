@@ -456,20 +456,43 @@ findfile (HV *self, struct cache *aswas, PerlIO *fp, SV *file)
 #ifdef DEBUG_LIBZIP
   PerlIO_debug("You are at %ld\n", (long) PerlIO_tell (fp));
 #endif
-  /* ZIP_STORED is zero, ZIP_DEFLATED is 8.  */
-  if (buffer[10]) {
-    return PerlIO_apply_layers(aTHX_ fp, NULL, "gzip(none)");
-  } else {
-    /* The number of bytes we need to copy.  */
-    long offset = (buffer[24] | (buffer[25] << 8)
-		   | (buffer[26] << 16) | (buffer[27] << 24));
-    SV *temp = newSVpvf ("subfile(end=+%ld)", offset);
-    int result = PerlIO_apply_layers(aTHX_ fp, NULL, SvPV_nolen(temp));
 
+  {
+    AV *layers = newAV();
+    const char *layer_name;
+    STRLEN layer_len;
+    SV *layer;
+    SV *arg;
+    int result;
+
+    /* ZIP_STORED is zero, ZIP_DEFLATED is 8.  */
+    if (buffer[10]) {
+      layer_name = "gzip";
+      layer_len = 4;
+      arg = newSVpvn("none",4);
+    } else {
+      /* The number of bytes we need to copy.  */
+      UV offset = (buffer[24] | (buffer[25] << 8)
+                     | (buffer[26] << 16) | (buffer[27] << 24));
+      layer_name = "subfile";
+      layer_len = 7;
+      arg = newSVuv(offset);
+    }
+    layer = PerlIO_find_layer(aTHX_ layer_name, layer_len, 0);
+
+    if (!layer)
+      Perl_croak(aTHX_ CLASSNAME " failed to find layer \"%s\"", layer_name);
+
+    av_push(layers,SvREFCNT_inc(layer));
+    av_push(layers,arg);
+
+    result = PerlIO_apply_layera(aTHX_ fp, NULL, layers, 0);
+      
 #ifdef DEBUG_LIBZIP
-    PerlIO_debug("Apply layer of %s gave %d\n", SvPV_nolen(temp), result);
+    PerlIO_debug("Apply layer of %s gave %d\n", layer_name, result);
 #endif
 
+    SvREFCNT_dec((SV *) layers);
     return result;
   }
 }

@@ -1,4 +1,4 @@
-ex::lib::zip version 0.01
+ex::lib::zip version 0.02
 =========================
 
 An extension to let you C<use> things direct from zip files direct.

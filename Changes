@@ -4,3 +4,13 @@ Revision history for Perl extension ex::lib::zip.
 	- original version; created by h2xs 1.21 with options
 		-A -n ex::lib::zip
 
+0.02  Sat Apr 21 23:22:10 BST 2001
+      Was leaking a scalar for each zip stored file encountered, as the
+      result of newSVpvf never had its refcount decreased.
+      Now re-written this section at the end of findfile() to build an AV
+      and call the new PerlIO_apply_layera() function. The argument to the
+      PerlIO::subfile layer is now a UV, which saves converting a number to and
+      from a string.
+      Added make-zips.pl to the MANIFEST, which had been forgotten.
+      Tweak the Makefile.PL so that make-zips.pl and pushme.pl don't get
+      spotted and hence installed. (They aren't meant to be installed)

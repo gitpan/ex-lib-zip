@@ -32,3 +32,4 @@ t/02data_handle.t
 t/03autoloader.t
 t/04comment.t
 t/pushmepullyou.t
+make-zips.pl
