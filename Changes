@@ -1,0 +1,6 @@
+Revision history for Perl extension ex::lib::zip.
+
+0.01  Sat Feb 24 15:11:09 2001
+	- original version; created by h2xs 1.21 with options
+		-A -n ex::lib::zip
+
